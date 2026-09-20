@@ -84,6 +84,9 @@ function updateClock() {
 }
 
 setInterval(updateClock,1000);
+    setInterval(function () {
+        location.reload();
+    }, 900000);
 
 let inactivityTimer;
 
