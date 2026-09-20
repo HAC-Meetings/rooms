@@ -4,32 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Area Hunter Meeting Rooms</title>
+<title>Hunter Area Command Meeting Rooms</title>
 
 <style>
 
 body{
     font-family: Arial, sans-serif;
-    background:#f4f4f4;
     margin:0;
     padding:20px;
+    background:#f2f2f2;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:20px;
 }
 
 h1{
-    text-align:center;
     color:#006747;
+    margin-bottom:5px;
+}
+
+.clock{
+    font-size:20px;
+    color:#444;
+}
+
+.calendars{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
 }
 
 .room{
-    background:white;
-    margin-bottom:25px;
-    padding:20px;
+    flex:1;
+    min-width:500px;
+    background:#fff;
     border-radius:10px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+    padding:15px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
 }
 
-h2{
+.room h2{
     margin-top:0;
+    text-align:center;
 }
 
 iframe{
@@ -38,28 +56,34 @@ iframe{
     border:none;
 }
 
-.button{
+.booking-button{
     display:block;
-    width:320px;
     margin:30px auto;
-    padding:20px;
+    width:350px;
     text-align:center;
+    padding:20px;
     background:#006747;
     color:white;
     text-decoration:none;
-    font-size:22px;
+    font-size:24px;
+    font-weight:bold;
     border-radius:10px;
 }
 
-.clock{
-    text-align:center;
-    font-size:24px;
-    margin-bottom:20px;
+.booking-button:hover{
+    background:#008756;
 }
 
 </style>
 
 <script>
+
+function updateClock() {
+    document.getElementById('clock').innerHTML =
+        new Date().toLocaleString();
+}
+
+setInterval(updateClock,1000);
 
 let inactivityTimer;
 
@@ -67,7 +91,7 @@ function resetTimer() {
 
     clearTimeout(inactivityTimer);
 
-    inactivityTimer = setTimeout(function () {
+    inactivityTimer = setTimeout(function() {
 
         window.scrollTo({
             top:0,
@@ -85,36 +109,50 @@ document.addEventListener("touchstart", resetTimer);
 document.addEventListener("click", resetTimer);
 document.addEventListener("scroll", resetTimer);
 
-window.onload = resetTimer;
-
-function updateClock() {
-
-    const now = new Date();
-
-    document.getElementById("clock").innerHTML =
-        now.toLocaleString();
-
-}
-
-setInterval(updateClock,1000);
+window.onload = function() {
+    updateClock();
+    resetTimer();
+};
 
 </script>
 
 </head>
 
-<body onload="updateClock()">
+<body>
 
-<h1>Area Hunter Meeting Rooms</h1>
+<div class="header">
+    <h1>Hunter Area Command Meeting Rooms</h1>
+    <div id="clock" class="clock"></div>
+</div>
 
-<div id="clock" class="clock"></div>
+<div class="calendars">
 
-<div class="room">
+    <div class="room">
+        <h2>Board Room</h2>
 
-<h2>Board Room</h2>
+        <iframe
+            src="https://outlook.office365.com/calendar/published/cc1d4aedcd024089919904295d38faca@rfs.nsw.gov.au/775196681e194c83886ae8d1873eec2f16040683340945229739/calendar.html">
+        </iframe>
 
-<iframe
-src="https://outlook.office365.com/calendar/published/cc1d4aedcd024089919904295d38faca@rfs.nsw.gov.au/775196681e194c83886ae8d1873eec2f16040683340945229739/calendar.html">
-</iframe>
+    </div>
+
+    <div class="room">
+        <h2>Quiet Room</h2>
+
+        <iframe
+            src="https://outlook.office365.com/calendar/published/4e09b6dd63224c2c9f7be08bf0b6e89d@rfs.nsw.gov.au/835fe6ab430540028ab1e18fb569ef1f3246045251603087374/calendar.html">
+        </iframe>
+
+    </div>
 
 </div>
+
+<a class="booking-button"
+href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Z-Nn5hRtYUmOtmFBdmN2FWcZ4TRXpJxNjccqyc2ZG61URE9PM1lLV1QzS1NCUTVFMFlXMEJTTU05UC4u"
+target="_blank">
+    Submit Booking Request
+</a>
+
+</body>
+</html>
 Initial meeting room display
