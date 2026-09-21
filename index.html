@@ -22,7 +22,7 @@ body{
     margin-bottom:20px;
 }
 
-   .header-button{
+.header-button{
     background:#e5281B;
     color:white;
     text-decoration:none;
@@ -33,18 +33,20 @@ body{
     white-space:nowrap;
 }
 
-    .header-button:hover{
-        background:#c71f15;
-    }
+.header-button:hover{
+    background:#c71f15;
+}
 
-    .title-area{
-        display:flex;
-        flex-direction:column;
-    }
+.title-area{
+    display:flex;
+    flex-direction:column;
+}
+
 h1{
     color:#e5281B;
     font-size:28px;
     margin-bottom:5px;
+    margin-top:0;
 }
 
 .clock{
@@ -56,11 +58,10 @@ h1{
     display:block;
     flex-direction:column;
     gap:8px;
-    flex-wrap:none;
 }
 
 .room{
-     background:#fff;
+    background:#fff;
     border-radius:10px;
     padding:10px;
     margin-bottom:20px;
@@ -97,6 +98,13 @@ iframe{
     background:#008756;
 }
 
+.footer {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
 </style>
 
 <script>
@@ -107,9 +115,9 @@ function updateClock() {
 }
 
 setInterval(updateClock,1000);
-    setInterval(function () {
-        location.reload();
-    }, 900000);
+setInterval(function () {
+    location.reload();
+}, 900000);
 
 let inactivityTimer;
 
@@ -161,14 +169,6 @@ window.onload = function() {
 
 </div>
 
-   <a class="header-button"
-   href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Z-Nn5hRtYUmOtmFBdmN2FWcZ4TRXpJxNjccqyc2ZG61URE9PM1lLV1QzS1NCUTVFMFlXMEJTTU05UC4u"
-   target="_blank">
-   Submit Booking Request
-</a>
-
-        </div>
-        
 <div class="calendars">
 
     <div class="room">
@@ -191,6 +191,9 @@ window.onload = function() {
 
 </div>
 
+<div class="footer">
+    Display managed by Capability Hunter
+</div>
+
 </body>
 </html>
-Display managed by Capability Hunter
