@@ -14,10 +14,11 @@
 
 html, body {
     margin: 0;
-    padding: 12px;
+    padding: 8px;
     background: #f2f2f2;
     font-family: Arial, sans-serif;
     user-select: none; /* Prevents text selection on kiosk touch interface */
+    width: 100%;
 }
 
 body {
@@ -30,7 +31,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+    padding: 0 4px;
     flex-shrink: 0;
 }
 
@@ -51,6 +53,12 @@ h1 {
     font-weight: bold;
 }
 
+.header-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 .header-button {
     background: #e5281B;
     color: white;
@@ -67,33 +75,70 @@ h1 {
     background: #c71f15;
 }
 
+.reset-button {
+    display: none; /* Hidden until a room is expanded */
+    background: #444;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.reset-button:active {
+    background: #222;
+}
+
 /* Stacked containers layout */
 .calendars {
     display: flex;
     flex-direction: column; /* Stacks containers vertically */
-    gap: 16px;
+    gap: 12px;
     flex: 1;
+    width: 100%;
 }
 
 .room {
     width: 100%;
-    height: 450px; /* Fixed height for each stacked room container */
+    height: 480px; /* Standard view container height */
     background: #fff;
-    border-radius: 10px;
-    padding: 12px;
+    border-radius: 8px;
+    padding: 10px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     position: relative;
+    transition: all 0.2s ease-in-out;
+}
+
+.room-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    flex-shrink: 0;
 }
 
 .room h2 {
-    margin: 0 0 10px 0;
+    margin: 0;
     text-align: center;
     font-size: 22px;
     color: #222;
-    flex-shrink: 0;
+}
+
+.expand-hint {
+    font-size: 12px;
+    color: #e5281B;
+    border: 1px solid #e5281B;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: bold;
 }
 
 .iframe-container {
@@ -105,21 +150,35 @@ h1 {
 }
 
 iframe {
-    width: 200%;
-    height: 200%;
+    /* 166.67% width/height complements scale(0.6) so zoomed content fills frame */
+    width: 166.67%;
+    height: 166.67%;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     
-    /* Kept 50% scale for calendar content inside iframe */
-    transform: scale(0.5);
+    /* 60% scale (10% bigger than previous 50% view) */
+    transform: scale(0.6);
     transform-origin: top left;
+}
+
+/* Full edge-to-edge screen expansion */
+.room.expanded {
+    height: 85vh; /* Expands container full screen vertically */
+    border-radius: 0;
+    margin-left: -8px;
+    margin-right: -8px;
+    width: calc(100% + 16px);
+}
+
+.room.hidden {
+    display: none; /* Hides non-selected room */
 }
 
 .footer {
     text-align: center;
     color: #777;
     font-size: 13px;
-    margin-top: 16px;
+    margin-top: 12px;
     padding-bottom: 8px;
     flex-shrink: 0;
 }
@@ -146,6 +205,7 @@ function resetTimer() {
     clearTimeout(inactivityTimer);
 
     inactivityTimer = setTimeout(function() {
+        resetView();
         window.scrollTo({
             top: 0,
             behavior: "smooth"
@@ -158,6 +218,33 @@ document.addEventListener("mousemove", resetTimer);
 document.addEventListener("touchstart", resetTimer);
 document.addEventListener("click", resetTimer);
 document.addEventListener("scroll", resetTimer);
+
+function expandRoom(roomId) {
+    const boardRoom = document.getElementById('board-room');
+    const quietRoom = document.getElementById('quiet-room');
+    const resetButton = document.getElementById('reset-button');
+
+    if (roomId === 'board') {
+        boardRoom.classList.add('expanded');
+        quietRoom.classList.add('hidden');
+    } else if (roomId === 'quiet') {
+        quietRoom.classList.add('expanded');
+        boardRoom.classList.add('hidden');
+    }
+
+    resetButton.style.display = 'block';
+}
+
+function resetView() {
+    const boardRoom = document.getElementById('board-room');
+    const quietRoom = document.getElementById('quiet-room');
+    const resetButton = document.getElementById('reset-button');
+
+    boardRoom.classList.remove('expanded', 'hidden');
+    quietRoom.classList.remove('expanded', 'hidden');
+
+    resetButton.style.display = 'none';
+}
 
 window.onload = function() {
     updateClock();
@@ -176,17 +263,26 @@ window.onload = function() {
         <div id="clock" class="clock"></div>
     </div>
 
-    <a class="header-button"
-       href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Z-Nn5hRtYUmOtmFBdmN2FWcZ4TRXpJxNjccqyc2ZG61URE9PM1lLV1QzS1NCUTVFMFlXMEJTTU05UC4u"
-       target="_blank">
-       Submit Booking Request
-    </a>
+    <div class="header-controls">
+        <button id="reset-button" class="reset-button" onclick="resetView()">
+            Reset View
+        </button>
+
+        <a class="header-button"
+           href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Z-Nn5hRtYUmOtmFBdmN2FWcZ4TRXpJxNjccqyc2ZG61URE9PM1lLV1QzS1NCUTVFMFlXMEJTTU05UC4u"
+           target="_blank">
+           Submit Booking Request
+        </a>
+    </div>
 </div>
 
 <div class="calendars">
 
-    <div class="room">
-        <h2>Board Room</h2>
+    <div id="board-room" class="room">
+        <div class="room-header" onclick="expandRoom('board')">
+            <h2>Board Room</h2>
+            <span class="expand-hint">Tap to Expand</span>
+        </div>
         <div class="iframe-container">
             <iframe
                 src="https://outlook.office365.com/calendar/published/cc1d4aedcd024089919904295d38faca@rfs.nsw.gov.au/775196681e194c83886ae8d1873eec2f16040683340945229739/calendar.html">
@@ -194,8 +290,11 @@ window.onload = function() {
         </div>
     </div>
 
-    <div class="room">
-        <h2>Quiet Room</h2>
+    <div id="quiet-room" class="room">
+        <div class="room-header" onclick="expandRoom('quiet')">
+            <h2>Quiet Room</h2>
+            <span class="expand-hint">Tap to Expand</span>
+        </div>
         <div class="iframe-container">
             <iframe
                 src="https://outlook.office365.com/calendar/published/4e09b6dd63224c2c9f7be08bf0b6e89d@rfs.nsw.gov.au/835fe6ab430540028ab1e18fb569ef1f3246045251603087374/calendar.html">
