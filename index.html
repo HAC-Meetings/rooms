@@ -16,10 +16,26 @@ body{
 }
 
 .header{
-    text-align:center;
+    display:flex;
+    justify-content:space-between;
+    align-items:centre;
     margin-bottom:20px;
+    gap:20px;
 }
 
+    .header-button{
+        background:#e5281B
+            color:white;
+        text-decoration:none;
+        font-size:20px
+            font-weight:bold;
+        white-space:nowrap;
+    }
+
+    .header-button:hover{
+        background:#c71f15;
+    }
+    
 h1{
     color:#e5281B;
     font-size:28px;
@@ -41,7 +57,7 @@ h1{
 .room{
      background:#fff;
     border-radius:10px;
-    padding:8px;
+    padding:10px;
     margin-bottom:20px;
     box-shadow:0 2px 6px rgba(0,0,0,0.2);
     overflow:hidden;
@@ -54,7 +70,7 @@ h1{
 
 iframe{
     width:100%;
-    height:700px;
+    height:800px;
     border:none;
 }
 
@@ -126,10 +142,19 @@ window.onload = function() {
 <body>
 
 <div class="header">
+    <div>
     <h1>Hunter Area Command Meeting Rooms</h1>
     <div id="clock" class="clock"></div>
 </div>
 
+    <a class="header-button"
+        href="https://form.cloud.microsoft/Pages/ResponsePage.aspx?id=Z-Nn5hRtYUmOtmFBdmN2FWcZ4TRXpJxNjccqyc2ZG61URE9PM1lLV1QzS1NCUTVFMFlXMEJTTU05UC4u"
+        target="_blank'>
+        Submit Booking Request
+        </a>
+
+        </div>
+        
 <div class="calendars">
 
     <div class="room">
