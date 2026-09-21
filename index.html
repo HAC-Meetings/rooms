@@ -16,11 +16,10 @@ body{
 }
 
 .header{
-    display:block;
+    display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:20px;
-    gap:20px;
 }
 
    .header-button{
@@ -37,7 +36,11 @@ body{
     .header-button:hover{
         background:#c71f15;
     }
-    
+
+    .title-area{
+        display:flex;
+        flex-direction:column;
+    }
 h1{
     color:#e5281B;
     font-size:28px;
@@ -144,9 +147,18 @@ window.onload = function() {
 <body>
 
 <div class="header">
-    <div>
-    <h1>Hunter Area Command Meeting Rooms</h1>
-    <div id="clock" class="clock"></div>
+
+    <div class="title-area">
+        <h1>Hunter Area Command Meeting Rooms</h1>
+        <div id="clock" class="clock"></div>
+    </div>
+
+    <a class="header-button"
+       href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Z-Nn5hRtYUmOtmFBdmN2FWcZ4TRXpJxNjccqyc2ZG61URE9PM1lLV1QzS1NCUTVFMFlXMEJTTU05UC4u"
+       target="_blank">
+       Submit Booking Request
+    </a>
+
 </div>
 
    <a class="header-button"
