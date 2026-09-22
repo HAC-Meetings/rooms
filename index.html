@@ -24,7 +24,6 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 .header {
@@ -43,9 +42,9 @@ body {
 
 h1 {
     color: #e5281B;
-    font-size: 23.4px; /* Reduced by 10% from 26px to fit on 1 line */
+    font-size: 23.4px;
     margin: 0 0 4px 0;
-    white-space: nowrap; /* Ensures title remains on a single line */
+    white-space: nowrap;
 }
 
 .clock {
@@ -96,9 +95,8 @@ h1 {
 /* Stacked containers layout */
 .calendars {
     display: flex;
-    flex-direction: column; /* Stacks containers vertically */
-    gap: 6px; /* Gap between containers */
-    flex: 1;
+    flex-direction: column;
+    gap: 6px;
     width: 100%;
 }
 
@@ -162,7 +160,7 @@ iframe {
     transition: transform 0.2s ease-in-out;
 }
 
-/* Expanded View: Reduced height by 10% (85vh -> 76.5vh) */
+/* Expanded View: Height set to 76.5vh */
 .room.expanded {
     height: 76.5vh;
     border-radius: 0;
@@ -171,17 +169,18 @@ iframe {
     width: calc(100% + 16px);
 }
 
-/* Expanded View: Calendar content scaled 20% larger (0.72 -> 0.864) */
+/* Expanded View: Calendar scale reduced ~10% to eliminate horizontal overflow */
 .room.expanded iframe {
-    width: 115.74%;
-    height: 115.74%;
-    transform: scale(0.864);
+    width: 128.87%;
+    height: 128.87%;
+    transform: scale(0.776);
 }
 
 .room.hidden {
     display: none; /* Hides non-selected room */
 }
 
+/* Minimal spacing inline footer directly under last container */
 .footer {
     text-align: center;
     color: #777;
