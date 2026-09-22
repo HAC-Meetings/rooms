@@ -30,7 +30,7 @@ body {
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Aligns controls with the top line of the title */
     margin-bottom: 12px;
     padding: 0 4px;
     flex-shrink: 0;
@@ -43,8 +43,9 @@ body {
 
 h1 {
     color: #e5281B;
-    font-size: 26px;
+    font-size: 23.4px; /* Reduced by 10% from 26px to fit on 1 line */
     margin: 0 0 4px 0;
+    white-space: nowrap; /* Ensures title remains on a single line */
 }
 
 .clock {
