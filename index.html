@@ -161,20 +161,20 @@ iframe {
     transition: transform 0.2s ease-in-out;
 }
 
-/* Expanded View: Full edge-to-edge screen */
+/* Expanded View: Reduced height by 10% (85vh -> 76.5vh) */
 .room.expanded {
-    height: 85vh;
+    height: 76.5vh;
     border-radius: 0;
     margin-left: -8px;
     margin-right: -8px;
     width: calc(100% + 16px);
 }
 
-/* Expanded View: Calendar content scaled 20% larger */
+/* Expanded View: Calendar content scaled 20% larger (0.72 -> 0.864) */
 .room.expanded iframe {
-    width: 138.89%;
-    height: 138.89%;
-    transform: scale(0.72);
+    width: 115.74%;
+    height: 115.74%;
+    transform: scale(0.864);
 }
 
 .room.hidden {
@@ -185,7 +185,7 @@ iframe {
     text-align: center;
     color: #777;
     font-size: 13px;
-    margin-top: 3px; /* Halved from 6px */
+    margin-top: 3px;
     padding-bottom: 4px;
     flex-shrink: 0;
 }
